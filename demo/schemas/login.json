@@ -1,0 +1,18 @@
+{
+    "type": "object",
+    "title": "login User",
+    "required": [
+      "email",
+      "password"
+    ],
+    "properties": {
+      "email": {
+        "type": "string",
+        "pattern":  "^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"
+      },
+      "password": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  }

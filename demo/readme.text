@@ -1,0 +1,18 @@
+1)please follow the url to install dynamo local from here 
+https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html
+
+2) run 
+aws dynamodb create-table --cli-input-json file://create-table-users.json --endpoint-url http://localhost:8000
+this command to create users table in local dynamodb
+
+3) run this command to start serverless local 
+sls offline --stage test
+
+4) use postman to hit this API 
+http://localhost:3000/test/users/create-su
+to create super admin ("email":"bharath.fullstack@gmail.com",
+    "password":"bharath")
+
+5) API collection is attached in the repo.
+
+6) add authorization in the hedders for all API's except create-su , login

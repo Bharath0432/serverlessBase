@@ -1,0 +1,73 @@
+
+service: demo
+plugins:
+  - serverless-offline
+  - serverless-dynamodb-local
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  environment:
+   secret: bharathSec@156
+
+custom:
+  dynamodb:
+    stages:
+      - ${self:provider.stage}
+
+functions:
+  create-user:
+    handler: handlers/userHandler.createUser
+    events:
+      - http:
+          path: users/create-user
+          method: post
+  create-SU:
+    handler: handlers/createSAdmin.createSU
+    events:
+      - http:
+          path: users/create-su
+          method: get
+  login:
+    handler: handlers/login.login
+    events:
+      - http:
+          path: users/login
+          method: post
+  edit-user:
+    handler: handlers/userHandler.editUser
+    events:
+      - http:
+          path: users/edit-user
+          method: post
+  delete-user:
+    handler: handlers/userHandler.editUser
+    events:
+      - http:
+          path: users/delete-user
+          method: delete
+  get-users:
+    handler: handlers/userHandler.getUsers
+    events:
+      - http:
+          path: users/get
+          method: get 
+
+resources:
+  Resources:
+    users:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: users
+        AttributeDefinitions:
+          - AttributeName: email
+            AttributeType: S
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
